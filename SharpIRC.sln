@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpIRC", "SharpIRC\SharpIRC.csproj", "{764F5C1D-C681-44AA-B127-1DBFF182AD36}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRC", "IRC\IRC.csproj", "{CA9941B4-76C9-4B05-83E1-409C52FB6D15}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "Installer\Installer.wixproj", "{E8C2E0A7-2089-48B6-80A3-337AAD78D17E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LucasHelpers.Wpf", "..\..\..\Documents\Visual Studio 2013\Projects\LucasHelpers\LucasHelpers.Wpf\LucasHelpers.Wpf.csproj", "{8D449947-FA2B-4385-BD97-EAF187499140}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,16 +39,16 @@ Global
 		{CA9941B4-76C9-4B05-83E1-409C52FB6D15}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{CA9941B4-76C9-4B05-83E1-409C52FB6D15}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CA9941B4-76C9-4B05-83E1-409C52FB6D15}.Release|x86.ActiveCfg = Release|Any CPU
-		{E8C2E0A7-2089-48B6-80A3-337AAD78D17E}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{E8C2E0A7-2089-48B6-80A3-337AAD78D17E}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{E8C2E0A7-2089-48B6-80A3-337AAD78D17E}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{E8C2E0A7-2089-48B6-80A3-337AAD78D17E}.Debug|x86.ActiveCfg = Debug|x86
-		{E8C2E0A7-2089-48B6-80A3-337AAD78D17E}.Debug|x86.Build.0 = Debug|x86
-		{E8C2E0A7-2089-48B6-80A3-337AAD78D17E}.Release|Any CPU.ActiveCfg = Release|x86
-		{E8C2E0A7-2089-48B6-80A3-337AAD78D17E}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{E8C2E0A7-2089-48B6-80A3-337AAD78D17E}.Release|Mixed Platforms.Build.0 = Release|x86
-		{E8C2E0A7-2089-48B6-80A3-337AAD78D17E}.Release|x86.ActiveCfg = Release|x86
-		{E8C2E0A7-2089-48B6-80A3-337AAD78D17E}.Release|x86.Build.0 = Release|x86
+		{8D449947-FA2B-4385-BD97-EAF187499140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D449947-FA2B-4385-BD97-EAF187499140}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D449947-FA2B-4385-BD97-EAF187499140}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8D449947-FA2B-4385-BD97-EAF187499140}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8D449947-FA2B-4385-BD97-EAF187499140}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8D449947-FA2B-4385-BD97-EAF187499140}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D449947-FA2B-4385-BD97-EAF187499140}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D449947-FA2B-4385-BD97-EAF187499140}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8D449947-FA2B-4385-BD97-EAF187499140}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8D449947-FA2B-4385-BD97-EAF187499140}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

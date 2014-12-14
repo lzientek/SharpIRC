@@ -30,11 +30,12 @@ namespace IRC
         public string LeaveMessage { get; set; }
         public Dictionary<string, Channel> Channels { get; private set; }
 
-        public string Nickname {
+        public string Nickname
+        {
             get { return _nickname; }
             set
             {
-                if(IsConnected)
+                if (IsConnected)
                     this.Nick(value); // update on server
                 _nickname = value; // update locally
                 Logger("You are now known as " + _nickname);
@@ -54,7 +55,7 @@ namespace IRC
         #endregion
 
         // todo could be static return instance of this class?
-        public new void Connect() 
+        public new void Connect()
         {
             // todo ensure required filds are populated
 
@@ -80,7 +81,7 @@ namespace IRC
             this.Nick(Nickname);
 
             // send user message
-            this.User(Nickname, (User.Mode) 8, RealName);
+            this.User(Nickname, (User.Mode)8, RealName);
         }
 
         protected void ProcessReply(object sender, Reply reply)
@@ -95,13 +96,13 @@ namespace IRC
                     this.Pong(reply.Trailing);
                     Logger(reply.ToString());
                     break;
-                case "JOIN" :
-                    if (reply.Params.Count <= 0 && !Channels.ContainsKey(reply.Params[0]))
+                case "JOIN":
+                    if (reply.Params.Count <= 0 || !Channels.ContainsKey(reply.Params[0]))
                         return;
                     break;
                 case "MODE":
                     break;
-                case "ERROR" :
+                case "ERROR":
                     Logger("error here");
                     break;
             }
@@ -149,7 +150,7 @@ namespace IRC
             // wait for error message to acknowledge quit
 
             // better way to end thread
-            if(_listenerThread != null)
+            if (_listenerThread != null)
                 _listenerThread.Abort();
 
             base.Disconnect();
@@ -165,6 +166,10 @@ namespace IRC
 
         public Channel CreateChannel(string name, string key = "")
         {
+            if (Channels.ContainsKey(name))
+            {
+                return Channels[name] = new Channel(this, name, key);
+            }
             var channel = new Channel(this, name, key);
             Channels.Add(name, channel);
 
@@ -174,23 +179,25 @@ namespace IRC
         public Channel[] CreateChannels(string[] names, string[] keys = null)
         {
             var channels = new Channel[names.Count()];
-            if(keys != null && names.Count() != keys.Count())
+            if (keys != null && names.Count() != keys.Count())
                 throw new ArgumentException("Must have a key for each channel name.");
 
             for (int i = 0; i < names.Length; i++)
             {
-                var channel = keys != null ? new Channel(this, names[i], keys[i]) 
-                                      : new Channel(this, names[i]);
 
-                Channels.Add(names[i], channel);
-                //_listener.ReceivedReply += channel.ProcessReply;
+                if (keys != null)
+                {
+                   channels[i] = CreateChannel(names[i], keys[i]);
+                }
+                else
+                {
+                    channels[i] = CreateChannel(names[i]);
+                }
             }
 
-            // Multiple channels at once
-            //this.Join(names, keys);
 
             return channels;
-        } 
+        }
 
         #endregion
 
