@@ -5,7 +5,9 @@
         xmlns:p="clr-namespace:SharpIRC.Properties"
         xmlns:v="clr-namespace:SharpIRC.Views"
         WindowStartupLocation="CenterOwner"
-        Title="Settings" Height="340" Width="300">
+        ShowMinButton="False"
+        ResizeMode="NoResize"
+        Title="Settings" Height="380" Width="300">
 
     <StackPanel Orientation="Vertical">
         <Label Content="User Preferences" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"/>
@@ -22,24 +24,24 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Margin="15,0,0,0" Content="Nickname:"/>
-            <TextBox x:Name="NicknameTextBox" Grid.Row="0" Grid.Column="1" Margin="0,0,20,0"
+            <Label Grid.Row="0" Grid.Column="0" Margin="15,5,5,5" Content="Nickname:"/>
+            <TextBox x:Name="NicknameTextBox" Grid.Row="0" Grid.Column="1" Margin="5,5,20,5"
                      Text="{Binding Mode=OneTime, Path=Nickname, Source={x:Static p:Settings.Default} }" />
 
-            <Label Grid.Row="1" Grid.Column="0" Margin="15,0,0,0" Content="Second Choice:"/>
-            <TextBox x:Name="SecondTextBox" Grid.Row="1" Grid.Column="1" Margin="0,0,20,0" 
+            <Label Grid.Row="1" Grid.Column="0" Margin="15,5,5,5" Content="Second Choice:"/>
+            <TextBox x:Name="SecondTextBox" Grid.Row="1" Grid.Column="1" Margin="5,5,20,5" 
                     Text="{Binding Mode=OneTime, Path=Nickname2, Source={x:Static p:Settings.Default}}" />
 
-            <Label Grid.Row="2" Grid.Column="0" Margin="15,0,0,0" Content="Third Choice:"/>
-            <TextBox x:Name="ThirdTextBox"  Grid.Row="2" Grid.Column="1" Margin="0,0,20,0"
+            <Label Grid.Row="2" Grid.Column="0" Margin="15,5,5,5" Content="Third Choice:"/>
+            <TextBox x:Name="ThirdTextBox"  Grid.Row="2" Grid.Column="1" Margin="5,5,20,5"
                      Text="{Binding Mode=OneTime, Path=Nickname3, Source={x:Static p:Settings.Default}}" />
 
-            <Label Grid.Row="3" Grid.Column="0" Margin="15,0,0,0" Content="Real Name:"/>
-            <TextBox x:Name="RealNameTextBox" Grid.Row="3" Grid.Column="1" Margin="0,0,20,0"
+            <Label Grid.Row="3" Grid.Column="0" Margin="15,5,5,5" Content="Real Name:"/>
+            <TextBox x:Name="RealNameTextBox" Grid.Row="3" Grid.Column="1" Margin="5,5,20,5"
                      Text="{Binding Mode=OneTime, Path=RealName, Source={x:Static p:Settings.Default}}"/>
 
-            <Label Grid.Row="4" Grid.Column="0" Margin="15,0,0,0" Content="Leave Message:"/>
-            <TextBox x:Name="LeaveTextBox" Grid.Row="4" Grid.Column="1" Margin="0,0,20,0"
+            <Label Grid.Row="4" Grid.Column="0" Margin="15,5,5,5" Content="Leave Message:"/>
+            <TextBox x:Name="LeaveTextBox" Grid.Row="4" Grid.Column="1" Margin="5,5,20,5"
                    Text="{Binding Mode=OneTime, Path=LeaveMessage, Source={x:Static p:Settings.Default}}"/>
         </Grid>
         <Label Content="Server Preferences" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"/>
@@ -53,12 +55,12 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Margin="15,0,0,0" Content="Server:"/>
-            <TextBox x:Name="ServerTextBox" Grid.Row="0" Grid.Column="1" Margin="0,0,20,0"
+            <Label Grid.Row="0" Grid.Column="0" Margin="15,5,5,5" Content="Server:"/>
+            <TextBox x:Name="ServerTextBox" Grid.Row="0" Grid.Column="1" Margin="5,5,20,5"
                    Text="{Binding Mode=OneTime, Path=Server, Source={x:Static p:Settings.Default}}"/>
 
-            <Label Grid.Row="1" Grid.Column="0" Margin="15,0,0,0" Content="Port:"/>
-            <TextBox x:Name="PortTextBox" Grid.Row="1" Grid.Column="1" Margin="0,0,20,0"
+            <Label Grid.Row="1" Grid.Column="0" Margin="15,5,5,5" Content="Port:"/>
+            <TextBox x:Name="PortTextBox" Grid.Row="1" Grid.Column="1" Margin="5,5,20,5"
                    Text="{Binding Mode=OneTime, Path=Port, Source={x:Static p:Settings.Default}}"/>
         </Grid>
 

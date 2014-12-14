@@ -57,9 +57,6 @@ namespace SharpIRC
         protected override void OnStartup(StartupEventArgs e)
         {
             // set theme
-            ThemeManager.ChangeTheme(this,
-                  ThemeManager.DefaultAccents.First(x => x.Name == Settings.Default.Theme),
-                  (Settings.Default.Style == "Dark") ? Theme.Dark : Theme.Light);
             base.OnStartup(e);
         }
     }

@@ -2,16 +2,15 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewModel="clr-namespace:SharpIRC.ViewModel"
-        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:views="clr-namespace:SharpIRC.Views"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         Title="IRC#" Height="500" Width="850" ShowIconOnTitleBar="True" Loaded="MainWindow_OnLoaded">
 
-    <controls:MetroWindow.WindowCommands>
+    <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <Button x:Name="SettingsButton" Content="settings"/>
-            <Button x:Name="AboutButton" Content="about"/>
         </controls:WindowCommands>
-    </controls:MetroWindow.WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
 
     <!--
     <controls:MetroWindow.DataContext>
@@ -20,7 +19,7 @@
     -->
 
     <Grid>
-        <TabControl x:Name="ChannelTabControl" ItemsSource="{Binding IrcTabItems}" TabStripPlacement="Bottom" SelectionChanged="TabControl_SelectionChanged">
+        <TabControl x:Name="ChannelTabControl" ItemsSource="{Binding IrcTabItems}" TabStripPlacement="Top" SelectionChanged="TabControl_SelectionChanged">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <DockPanel>
@@ -30,63 +29,47 @@
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.Resources>
+                <DataTemplate x:Key="MessageDataTemplate">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding TimeStamps}" Margin="5"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Message}" Margin="5" TextWrapping="Wrap"/>
+                    </Grid>
+                </DataTemplate>
                 <DataTemplate DataType="{x:Type viewModel:ChannelViewModel}" >
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <ListBox x:Name="StampMessageListBox" ItemsSource="{Binding TimeStamps}"
-                                 Grid.Column="0" Grid.Row="0"
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                             ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListBoxItem}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                                </Style>
-                            </ListBox.ItemContainerStyle>
-                        </ListBox>
-
-                        <GridSplitter HorizontalAlignment="Right" 
-                          VerticalAlignment="Stretch"
-                          Grid.Column="0"
-                          Grid.Row="0"
-                          ResizeBehavior="BasedOnAlignment"
-                          Width="1" Background="Gainsboro"/>
-
-                        <ListBox x:Name="MessageListBox" Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Messages}">
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListBoxItem}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                                </Style>
-                            </ListBox.ItemContainerStyle>
-                        </ListBox>
+                        <ItemsControl  x:Name="MessageListBox" Grid.Row="0" ItemsSource="{Binding Messages}"
+                                 ItemTemplate="{StaticResource MessageDataTemplate}">
+                                   
+                        </ItemsControl>
 
                         <GridSplitter HorizontalAlignment="Right"
                           VerticalAlignment="Stretch"
-                          Grid.Column="1"
-                          Grid.Row="0"
-                          ResizeBehavior="PreviousAndNext"
+                          Grid.Row="0" Grid.Column="1"
+                                      ResizeBehavior="PreviousAndNext"
                           Width="2" Background="#41B1E1"/>
 
-                        <ListBox x:Name="UsersListView" Grid.Column="2" Grid.Row="0" ItemsSource="{Binding Users}">
+                        <ListBox x:Name="UsersListView" Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Users}">
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListBoxItem}">
                                     <Setter Property="HorizontalContentAlignment" Value="Left"/>
                                     <Setter Property="VerticalContentAlignment" Value="Center"/>
                                 </Style>
                             </ListBox.ItemContainerStyle>
+
                         </ListBox>
 
                         <DockPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
@@ -98,49 +81,25 @@
                         </DockPanel>
                     </Grid>
                 </DataTemplate>
+                
+                <!-- serveur views -->
                 <DataTemplate DataType="{x:Type viewModel:ServerViewModel}" >
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <ListBox x:Name="StampMessageListBox" ItemsSource="{Binding TimeStamps}"
-                                 Grid.Column="0" Grid.Row="0"
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                             ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListBoxItem}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                                </Style>
-                            </ListBox.ItemContainerStyle>
-                        </ListBox>
+                        <ItemsControl x:Name="MessageListBox"  Grid.Row="0" ItemsSource="{Binding Messages}"
+                                 ItemTemplate="{StaticResource MessageDataTemplate}">
+                        </ItemsControl>
 
-                        <GridSplitter HorizontalAlignment="Right" 
-                          VerticalAlignment="Stretch"
-                          Grid.Column="0"
-                          Grid.Row="0"
-                          ResizeBehavior="BasedOnAlignment"
-                          Width="1" Background="Gainsboro"/>
-
-                        <ListBox x:Name="MessageListBox" Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Messages}">
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListBoxItem}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                                </Style>
-                            </ListBox.ItemContainerStyle>
-                        </ListBox>
-
-                        <DockPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
+                        <DockPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                             <TextBlock x:Name="Nickname"
                                        DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:MetroWindow}}, Path=DataContext}"
                                        Text="{Binding Nickname, Mode=OneWay}"

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpIRC", "SharpIRC\SharpI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRC", "IRC\IRC.csproj", "{CA9941B4-76C9-4B05-83E1-409C52FB6D15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LucasHelpers.Wpf", "..\..\..\Documents\Visual Studio 2013\Projects\LucasHelpers\LucasHelpers.Wpf\LucasHelpers.Wpf.csproj", "{8D449947-FA2B-4385-BD97-EAF187499140}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LucasHelpers.Wpf", "..\..\..\Documents\Visual Studio 2013\Projects\LucasHelpers\LucasHelpers\Wpf\LucasHelpers.Wpf\LucasHelpers.Wpf.csproj", "{8D449947-FA2B-4385-BD97-EAF187499140}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

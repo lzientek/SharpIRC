@@ -70,35 +70,10 @@ namespace SharpIRC
             AddServerChannel();
             AddUserCommandlets();
 
-            AboutButton.Click += (o, args) =>
-            {
-                var about = new AboutWindow(this);
-                about.okButton.Click += (sender1, eventArgs) => about.Close();
-                about.Show();
-            };
-
             SettingsButton.Click += (o, args) => new SettingsWindow(this).Show();
-
         }
 
-        private void TestRoom()
-        {
-            // todo remove me
-            var chan = new Channel(_app.IRCClient, "#testing");
-            var cvm = new ChannelViewModel(chan);
-            _clientViewModel.IrcTabItems.Add(cvm);
 
-            cvm.Users.Add(new User(_app.IRCClient, "A"));
-            cvm.Users.Add(new User(_app.IRCClient, "Q"));
-            cvm.Users.Add(new User(_app.IRCClient, "b"));
-            cvm.Users.Add(new User(_app.IRCClient, "h"));
-            cvm.Users.Add(new User(_app.IRCClient, "Z"));
-            cvm.Users.Add(new User(_app.IRCClient, "0"));
-            cvm.Users.Add(new User(_app.IRCClient, "Ar"));
-            cvm.Users.Add(new User(_app.IRCClient, "p"));
-
-            ChannelTabControl.SelectedIndex = 1;
-        }
 
         private void AddUserCommandlets()
         {

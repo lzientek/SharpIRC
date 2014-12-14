@@ -18,30 +18,27 @@ namespace SharpIRC.ViewModel
 {
     public sealed class ServerViewModel : IIrcTabItemModel
     {
-        public ObservableCollection<string> TimeStamps { get; private set; }
-        public ObservableCollection<string> Messages { get; private set; }
+        public ObservableCollection<MessageDate> Messages { get; private set; }
 
         public ServerViewModel(Client ircClient)
         {
             _ircClient = ircClient;
-            Messages = new ObservableCollection<string>();
-            TimeStamps  = new ObservableCollection<string>();
+            Messages = new ObservableCollection<MessageDate>();
         }
 
         public void Message(string message)
         {
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
-                (Action)(() =>
+                (Action)(() => Messages.Add(new MessageDate()
                 {
-                    TimeStamps.Add(String.Format("[{0:HH:mm:ss}]", DateTime.Now));
-                    Messages.Add(message);
-                }));
+                    Message = message,
+                    TimeStamps = String.Format("[{0:HH:mm:ss}]", DateTime.Now)
+                })));
         }
 
         public void Clear()
         {
             Messages.Clear();
-            TimeStamps.Clear();
         }
 
         public string Header
