@@ -9,14 +9,17 @@
 #endregion
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Threading;
 using IRC;
+using SharpIRC.Annotations;
 using SharpIRC.Views;
 
 namespace SharpIRC.ViewModel
 {
-    public sealed class ServerViewModel : IIrcTabItemModel
+    public sealed class ServerViewModel : IIrcTabItemModel,INotifyPropertyChanged
     {
         public ObservableCollection<MessageDate> Messages { get; private set; }
 
@@ -41,8 +44,10 @@ namespace SharpIRC.ViewModel
             Messages.Clear();
         }
 
-        public string Header
+        public string Server
         {
+            set { _ircClient.Server = value;
+                OnPropertyChanged(); }
             get
             {
                 return _ircClient.Server;
@@ -58,6 +63,14 @@ namespace SharpIRC.ViewModel
         }
 
         private Client _ircClient;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
 }

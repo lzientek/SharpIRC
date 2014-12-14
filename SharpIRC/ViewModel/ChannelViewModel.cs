@@ -39,7 +39,6 @@ namespace SharpIRC.ViewModel
 
             //Application.Current.MainWindow.Dispatcher
 
-            // todo pretty format message (colours)
             channel.Message += (sender, m) => Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
                     (Action)(() => Messages.Add(new MessageDate()
                     {
@@ -106,7 +105,7 @@ namespace SharpIRC.ViewModel
             Users = new ObservableCollection<User>();
         }
 
-        public string Header
+        public string Server
         {
             get { return _channel.Name ?? string.Empty; }
         }

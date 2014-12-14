@@ -96,9 +96,6 @@
     <Compile Include="ViewModel\ChannelViewModel.cs" />
     <Compile Include="ViewModel\ClientViewModel.cs" />
     <Compile Include="ViewModel\ServerViewModel.cs" />
-    <Compile Include="Views\AboutWindow.xaml.cs">
-      <DependentUpon>AboutWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ChannelTabView.xaml.cs">
       <DependentUpon>ChannelTabView.xaml</DependentUpon>
     </Compile>
@@ -121,10 +118,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TabStyleResource.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

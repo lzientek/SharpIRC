@@ -19,12 +19,15 @@
     -->
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <TabControl x:Name="ChannelTabControl" ItemsSource="{Binding IrcTabItems}" TabStripPlacement="Top" SelectionChanged="TabControl_SelectionChanged">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <DockPanel>
-                        <TextBlock Text="{Binding Header}"/>
-                        <!-- maybe introduce closing x -->
+                        <TextBlock Text="{Binding Server}"/>
                     </DockPanel>
                 </DataTemplate>
             </TabControl.ItemTemplate>
@@ -110,5 +113,11 @@
                 </DataTemplate>
             </TabControl.Resources>
         </TabControl>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Orientation="Horizontal" >
+            <Button Content="Connect" Click="Connect_OnClick" Margin="3,1" />
+            <Button Content="Leave" Click="Leave_OnCloseClick" Margin="3,1" />
+            <Button Content="Join" Click="Join_OnClick" Margin="3,1" />
+            <Button Content="Clear" Click="Clear_OnClick" Margin="3,1" />
+        </StackPanel>
     </Grid>
 </controls:MetroWindow>

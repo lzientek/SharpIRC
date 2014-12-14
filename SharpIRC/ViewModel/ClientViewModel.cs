@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using IRC;
@@ -24,7 +25,6 @@ namespace SharpIRC.ViewModel
     public class ClientViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<IIrcTabItemModel> IrcTabItems { get; set; } // TODO possibly rename to irc tabs
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public string Nickname {
             get { return Client.Nickname; }
@@ -33,7 +33,7 @@ namespace SharpIRC.ViewModel
                 if (!string.IsNullOrEmpty(value))
                 {
                     Client.Nickname = value;
-                    OnPropertyChanged("Nickname");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -47,14 +47,17 @@ namespace SharpIRC.ViewModel
             IrcTabItems = new ObservableCollection<IIrcTabItemModel>();
         }
 
+
+
+        private Client _client;
+        public event PropertyChangedEventHandler PropertyChanged;
+
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        private Client _client;
     }
 
 }

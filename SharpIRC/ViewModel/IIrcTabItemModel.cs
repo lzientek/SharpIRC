@@ -18,7 +18,7 @@ namespace SharpIRC.Views
 {
     public interface IIrcTabItemModel
     {
-        string Header { get; }
+        string Server { get; }
         Type Type { get; }
         void Message(string message);
         void Clear();
