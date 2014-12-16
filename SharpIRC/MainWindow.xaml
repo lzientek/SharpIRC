@@ -4,6 +4,7 @@
         xmlns:viewModel="clr-namespace:SharpIRC.ViewModel"
         xmlns:views="clr-namespace:SharpIRC.Views"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        Icon="app.ico"              
         Title="IRC#" Height="500" Width="850" ShowIconOnTitleBar="True" Loaded="MainWindow_OnLoaded">
 
     <controls:MetroWindow.RightWindowCommands>
@@ -39,7 +40,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding TimeStamps}" Margin="5"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Message}" Margin="5" TextWrapping="Wrap"/>
+                        <TextBlock Grid.Column="1" Foreground="{Binding Color}" Text="{Binding Message}" Margin="5" TextWrapping="Wrap"/>
                     </Grid>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewModel:ChannelViewModel}" >
@@ -53,25 +54,33 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
+                        <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Disabled"
+                                      VerticalScrollBarVisibility="Auto" SizeChanged="ScrollViewer_SizeChanged" >
 
-                        <ItemsControl  x:Name="MessageListBox" Grid.Row="0" ItemsSource="{Binding Messages}"
+                            <ItemsControl  x:Name="MessageListBox" Grid.Row="0" ItemsSource="{Binding Messages}"
                                  ItemTemplate="{StaticResource MessageDataTemplate}">
-                                   
-                        </ItemsControl>
 
-                        <GridSplitter HorizontalAlignment="Right"
-                          VerticalAlignment="Stretch"
-                          Grid.Row="0" Grid.Column="1"
-                                      ResizeBehavior="PreviousAndNext"
-                          Width="2" Background="#41B1E1"/>
+                            </ItemsControl>
+                        </ScrollViewer>
 
-                        <ListBox x:Name="UsersListView" Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Users}">
+                        <ListBox x:Name="UsersListView" Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Users}" Margin="5,0">
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListBoxItem}">
                                     <Setter Property="HorizontalContentAlignment" Value="Left"/>
                                     <Setter Property="VerticalContentAlignment" Value="Center"/>
                                 </Style>
                             </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}">
+                                        <TextBlock.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="Kick" Click="Kick_OnClick" />
+                                            </ContextMenu>
+                                        </TextBlock.ContextMenu>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
 
                         </ListBox>
 
@@ -84,7 +93,7 @@
                         </DockPanel>
                     </Grid>
                 </DataTemplate>
-                
+
                 <!-- serveur views -->
                 <DataTemplate DataType="{x:Type viewModel:ServerViewModel}" >
                     <Grid>
@@ -97,10 +106,13 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-
-                        <ItemsControl x:Name="MessageListBox"  Grid.Row="0" ItemsSource="{Binding Messages}"
+                        <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Disabled"
+                                      VerticalScrollBarVisibility="Auto" SizeChanged="ScrollViewer_SizeChanged"
+                                      >
+                            <ItemsControl x:Name="MessageListBox"  ItemsSource="{Binding Messages}"
                                  ItemTemplate="{StaticResource MessageDataTemplate}">
-                        </ItemsControl>
+                            </ItemsControl>
+                        </ScrollViewer>
 
                         <DockPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                             <TextBlock x:Name="Nickname"
@@ -118,6 +130,7 @@
             <Button Content="Leave" Click="Leave_OnCloseClick" Margin="3,1" />
             <Button Content="Join" Click="Join_OnClick" Margin="3,1" />
             <Button Content="Clear" Click="Clear_OnClick" Margin="3,1" />
+            <Button Content="Invite" Click="Invite_OnClick" Margin="3,1" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

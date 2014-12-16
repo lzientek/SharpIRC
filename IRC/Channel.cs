@@ -8,8 +8,6 @@
 //  All other rights reserved.
 #endregion
 using System;
-using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Linq;
 
 namespace IRC
@@ -47,6 +45,7 @@ namespace IRC
         public event EventHandler Left;
         public event EventHandler<User> Joined;
         public event EventHandler<NamesList> NamesList;
+        public event EventHandler<string> OtherMsg;
 
         private void OnNamesList(NamesList e)
         {
@@ -73,7 +72,11 @@ namespace IRC
             EventHandler<Message> handler = Message;
             if (handler != null) handler(this, e);
         }
-
+        private void OnOtherMsg(string msg)
+        {
+            var handler = OtherMsg;
+            if (handler != null) handler(this, msg);
+        }
         private void OnJoined(User user)
         {
             if (Joined != null) Joined(this, user);
@@ -116,7 +119,7 @@ namespace IRC
 
         public void Kick(User user)
         {
-
+            _client.Kick(this.Name,user.Nick);
         }
 
         public void Invite(User user)
@@ -194,6 +197,9 @@ namespace IRC
                     break;
                 case ReplyCode.RplNoTopic:
                     Topic = new Topic();
+                    break;
+                default:
+                    OnOtherMsg(reply.Trailing);
                     break;
             }
         }

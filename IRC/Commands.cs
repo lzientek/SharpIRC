@@ -165,40 +165,40 @@ namespace IRC
         // send a message to 
         public static void PrivMsg(this Client client, string msgTarget, string message)
         {
-            client.Send("PRIVMSG " + msgTarget + " :" + message);
+            client.Send(string.Format("PRIVMSG {0} : {1}", msgTarget, message));
         }
 
         // notice is the same as privmsg excpet no automatic messages should be sent back
         public static void Notice(this Client client, string msgTarget, string text)
         {
-            client.Send("NOTICE " + msgTarget + " " + text);
+            client.Send(string.Format("NOTICE {0} {1}", msgTarget, text));
         }
         #endregion
 
         #region Server Queries and Commands
         public static void LUsers(this Client client, string mask = "", string target = "")
         {
-            client.Send("LUSER " + mask + " " + target);
+            client.Send(string.Format("LUSER {0} {1}", mask, target));
         }
 
         public static void Version(this Client client, string target = "")
         {
-            client.Send("VERSION " + target);
+            client.Send(string.Format("VERSION {0}", target));
         }
 
         public static void Stats(this Client client, string query = "", string target = "")
         {
-            client.Send("STATS " + query + " " + target);
+            client.Send(string.Format("STATS {0} {1}", query, target));
         }
 
         public static void Links(this Client client, string server = "", string mask = "")
         {
-            client.Send("LINKS " + server + " " + mask);
+            client.Send(string.Format("LINKS {0} {1}", server, mask));
         }
 
         public static void Time(this Client client, string target = "")
         {
-            client.Send("TIME " + target);
+            client.Send(string.Format("TIME {0}", target));
         }
 
         /// <summary>
@@ -212,12 +212,12 @@ namespace IRC
         /// <param name="remote"></param>
         public static void Connect(this Client client, string target, string port, string remote = "")
         {
-            client.Send("CONNECT " + target + " " + port + " " + remote);
+            client.Send(string.Format("CONNECT {0} {1} {2}", target, port, remote));
         }
 
         public static void Trace(this Client client, string target = "")
         {
-            client.Send("TRACE " + target);
+            client.Send(string.Format("TRACE {0}", target));
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace IRC
         /// <param name="target"></param>
         public static void Admin(this Client client, string target = "")
         {
-            client.Send("ADMIN " + target);
+            client.Send(string.Format("ADMIN {0}", target));
         }
 
         /// <summary>
@@ -243,7 +243,7 @@ namespace IRC
         /// <param name="target"></param>
         public static void Info(this Client client, string target = "")
         {
-            client.Send("INFO " + target);
+            client.Send(string.Format("INFO {0}", target));
         }
 
         #endregion
@@ -265,7 +265,7 @@ namespace IRC
         /// <param name="type"></param>
         public static void ServList(this Client client, string mask = "", string type = "")
         {
-            client.Send("SERVLIST " + mask + " " + type);
+            client.Send(string.Format("SERVLIST {0} {1}", mask, type));
         }
 
         /// <summary>
@@ -279,7 +279,7 @@ namespace IRC
         /// <param name="text"></param>
         public static void SQuery(this Client client, string servicename, string text)
         {
-            client.Send("SQUERY " + servicename + " :" + text);
+            client.Send(string.Format("SQUERY {0} :{1}", servicename, text));
         }
 
         #endregion
@@ -308,7 +308,7 @@ namespace IRC
         /// name and nickname if the channel <mask> cannot be found.</param>
         public static void Who(this Client client, string mask = "")
         {
-            client.Send("WHO " + mask);
+            client.Send(string.Format("WHO {0}", mask));
         }
 
         public static void WhoIs(this Client client, string mask = "", string target = "")
@@ -320,7 +320,7 @@ namespace IRC
         public static void WhoIs(this Client client, string[] mask = null, string target = "")
         {
             if(mask == null) mask = new string[] {};
-            client.Send("WHOIS " + target + " " + string.Join(",", mask));
+            client.Send(string.Format("WHOIS {0} {1}", target, string.Join(",", mask)));
         }
 
         public static void WhoWas(this Client client, string nickname, string count = "", string target = "")
@@ -331,7 +331,7 @@ namespace IRC
         public static void WhoWas(this Client client, string[] nickname, string count = "", string target = "")
         {
             if(nickname == null) nickname = new string[] {};
-            client.Send("WHOWAS " + nickname + " " + count + " " + target);
+            client.Send(string.Format("WHOWAS {0} {1} {2}", nickname, count, target));
         }
 
         #endregion
@@ -344,17 +344,17 @@ namespace IRC
 
         public static void Kill(this Client client, string nickname, string comment)
         {
-            client.Send("KILL " + nickname + " " + comment);
+            client.Send(string.Format("KILL {0} {1}", nickname, comment));
         }
 
         public static void Ping(this Client client, string server1, string server2 = "")
         {
-            client.Send("PING " + server1 + " " + server2);
+            client.Send(string.Format("PING {0} {1}", server1, server2));
         }
 
         public static void Pong(this Client client, string server, string server2 = "")
         {
-            client.Send("PONG " + server + " " + server2);
+            client.Send(string.Format("PONG {0} {1}", server, server2));
         }
 
         /* error is only used by servers
@@ -378,7 +378,7 @@ namespace IRC
 
         public static void Away(this Client client, string text = "")
         {
-            client.Send("AWAY :" + text);
+            client.Send(string.Format("AWAY :{0}", text));
         }
 
         /// <summary>
@@ -404,17 +404,17 @@ namespace IRC
 
         public static void Summon(this Client client, string user, string target = "", string channel = "")
         {
-            client.Send("SUMMON " + user + " " + target + " " + channel);
+            client.Send(string.Format("SUMMON {0} {1} {2}", user, target, channel));
         }
 
         public static void Target(this Client client, string target = "")
         {
-            client.Send("USERS " + target);
+            client.Send(string.Format("USERS {0}", target));
         }
 
         public static void WallOps(this Client client, string text)
         {
-            client.Send("WALLOPS " + text);
+            client.Send(string.Format("WALLOPS {0}", text));
         }
 
         public static void UserHost(this Client client, string nickname)
@@ -424,7 +424,7 @@ namespace IRC
 
         public static void UserHost(this Client client, string[] nicknames)
         {
-            client.Send("USERHOST " + String.Join(" ", nicknames));
+            client.Send(string.Format("USERHOST {0}", String.Join(" ", nicknames)));
         }
 
         public static void Ison(this Client client, string nickname)
@@ -434,7 +434,7 @@ namespace IRC
 
         public static void Ison(this Client client, string[] nicknames)
         {
-            client.Send("ISON " + string.Join(" " , nicknames));
+            client.Send(string.Format("ISON {0}", string.Join(" " , nicknames)));
         }
 
         #endregion

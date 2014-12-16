@@ -254,15 +254,11 @@ namespace IRC
                 trailingStart = message.Length;
 
             string[] commandAndParameters = message.Substring(prefixEnd + 1, trailingStart - prefixEnd - 1).Split(' ');
-            foreach (var param in commandAndParameters)
-            {
-                param.Trim();
-            }
 
-            reply.Command = commandAndParameters.First();
+            reply.Command = commandAndParameters.First().Trim();
 
             if (commandAndParameters.Length > 1)
-                reply.Params = commandAndParameters.Skip(1).ToList();
+                reply.Params = commandAndParameters.Skip(1).Select(m=>m.Trim()).ToList();
 
             reply.Trailing = trailing.Trim();
 

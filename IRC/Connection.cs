@@ -39,7 +39,6 @@ namespace IRC
         protected internal void Send(string message) // sends all messages
         {
             byte[] data = Encoding.ASCII.GetBytes(message + "\n");
-            Debug.WriteLine(message); // todo make debug?
             TcpClient.GetStream().Write(data, 0, data.Length);
         }
 

@@ -137,7 +137,7 @@ namespace IRC
                     Logger(reply.Trailing);
                     break;
                 default:
-                    Debug.WriteLine(reply.Trailing);
+                    Logger(reply.Trailing);
                     break;
             }
 

@@ -10,6 +10,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,7 +30,7 @@ namespace SharpIRC
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private readonly App _app = (App) Application.Current;
+        private readonly App _app = (App)Application.Current;
         private readonly ClientViewModel _clientViewModel;
         private IIrcTabItemModel _currentChannelViewModel;
         private ServerViewModel _serverTab;
@@ -98,9 +99,9 @@ namespace SharpIRC
                 cvm.Channel.NamesList += (sender, list) => Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
                 {
                     var userListBox = FindVisualChildByName<ListBox>(ChannelTabControl, "UsersListView");
-                    if(userListBox == null)
+                    if (userListBox == null)
                         Debug.WriteLine("not found: null");
-                    else 
+                    else
                         userListBox.Items.SortDescriptions.Add(new SortDescription("Nick", ListSortDirection.Ascending));
                 }));
                 // join the channel
@@ -112,9 +113,9 @@ namespace SharpIRC
                 var cvm = ChannelTabControl.SelectedItem as ChannelViewModel;
                 if (cvm == null) return;
 
-                if(cvm.Channel.IsConnected) 
+                if (cvm.Channel.IsConnected)
                 {
-                    if(parameters.Length == 1 && !string.IsNullOrEmpty(parameters[0]))
+                    if (parameters.Length == 1 && !string.IsNullOrEmpty(parameters[0]))
                         cvm.Channel.Leave(parameters[0]);
                     else
                         cvm.Channel.Leave();
@@ -138,7 +139,10 @@ namespace SharpIRC
             {
                 var channel = _currentChannelViewModel as ChannelViewModel;
                 if (channel != null)
+                {
                     channel.Say(tBox.Text);
+                    channel.Message(tBox.Text);
+                }
             }
 
             tBox.Text = string.Empty;
@@ -147,8 +151,8 @@ namespace SharpIRC
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _currentChannelViewModel = ChannelTabControl.SelectedItem as IIrcTabItemModel;
-            
-            if(_currentChannelViewModel != null)
+
+            if (_currentChannelViewModel != null)
                 Debug.WriteLine("Selection Changed: " + _currentChannelViewModel.Server);
         }
 
@@ -163,7 +167,7 @@ namespace SharpIRC
                 if (child != null && child.Name == name)
                     break; // found
 
-                child = FindVisualChildByName<T>(ch, name); 
+                child = FindVisualChildByName<T>(ch, name);
 
                 if (child != null) break; // nothing left
             }
@@ -242,6 +246,61 @@ namespace SharpIRC
         private void Clear_OnClick(object sender, RoutedEventArgs e)
         {
             _currentChannelViewModel.Clear();
+        }
+
+        private void ScrollViewer_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var scroll = sender as ScrollViewer;
+            if (scroll != null)
+            {
+                scroll.ScrollToEnd();
+            }
+        }
+
+        private void Kick_OnClick(object sender, RoutedEventArgs e)
+        {
+            MenuItem item = sender as MenuItem;
+            if (item != null)
+            {
+                var user = item.DataContext as User;
+                var cvm = ChannelTabControl.SelectedItem as ChannelViewModel;
+                if (cvm != null && user != null)
+                {
+                    cvm.Channel.Kick(user);
+
+                }
+            }
+
+        }
+
+
+        private void Invite_OnClick(object sender, RoutedEventArgs e)
+        {
+
+
+            var cvm = ChannelTabControl.SelectedItem as ChannelViewModel;
+            if (cvm != null)
+            {
+
+                PromptChamp name = new PromptChamp(new Champ()
+                {
+                    ChampUn = "Nick name",
+                    TextBouton = "Invite",
+                    Title = "Invite to the channel"
+                });
+
+                name.Valided += (o, args) =>
+                {
+                    if (name.Champ.TextUn != null)
+                    {
+                        cvm.Channel.Invite(new User(_app.IRCClient, name.Champ.TextUn));
+                    }
+                };
+
+                name.Show();
+
+            }
+
         }
     }
 }

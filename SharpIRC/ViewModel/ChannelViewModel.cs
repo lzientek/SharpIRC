@@ -8,13 +8,9 @@
 //  All other rights reserved.
 #endregion
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Threading;
 using IRC;
 using SharpIRC.Views;
@@ -43,9 +39,15 @@ namespace SharpIRC.ViewModel
                     (Action)(() => Messages.Add(new MessageDate()
                     {
                         Message = m.Text,
-                        TimeStamps = String.Format("[{0:HH:mm:ss}]\t<{1}>", DateTime.Now, m.User.Nick)
+                        TimeStamps = String.Format("[{0:HH:mm:ss}] <{1}>", DateTime.Now, m.User.Nick)
                     })));
-
+            channel.OtherMsg += (sender, s) => Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
+                (Action) (() => Messages.Add(new MessageDate()
+                {
+                    Message = s,
+                    TimeStamps = String.Format("[{0:HH:mm:ss}] ", DateTime.Now),
+                    Color = new SolidColorBrush(Colors.LightCoral)
+                })));
             channel.NamesList += (sender, list) => Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
                 (Action)(() =>
                 {
@@ -133,6 +135,14 @@ namespace SharpIRC.ViewModel
 
     public class MessageDate
     {
+        private Brush _color;
+
+        public Brush Color
+        {
+            get { return _color ?? new SolidColorBrush(Colors.Black); }
+            set { _color = value; }
+        }
+
         public string Message { get; set; }
         public string TimeStamps { get; set; }
     }
